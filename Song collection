@@ -1,0 +1,75 @@
+
+ Song.html 
+
+
+<html>
+
+ <head> 
+<title>song form</title>
+ </head>
+ <body>
+ <form method="GET" action="http://localhost:8080/Examples/P12">
+ <pre>Song Name : <input type="text" Name="sname" size=20/></pre> 
+<pre>Composer : <input type="text" Name="cname" size=20/> </pre> 
+<pre>Singer : <input type="text" Name="singer" size=20/>
+</pre> Artists : <br/> <input type="checkbox" name="fluteman" /> Fluteman<br/> 
+<input type="checkbox" name="tabalaman" I> Tabalaman<br/> <input type="checkbox" name="violinman" /> Violinman<br/> <input type="checkbox" name="supportingsinger" />Supporting Singer</br></br> 
+<input type="submit" value="submit "I>
+ <input type="submit" value="clear"/>
+ </form> 
+</body> 
+</html> 
+
+
+Create servlet P12.java in source packages 
+
+import java.io.*; 
+import java.io.FileWriter; 
+import java.util.*; 
+import javax.servlet.*;
+ import javax.servlet.http.*; 
+import java.io.FileReader; 
+public class P12 extends HttpServlet{ public void doGet(HttpServletRequest req,HttpServletResponse res) throws ServletExcepti on,I0Exception res.setContentType("text/html");//setting the content type PrintWriter pw=res.getWriter();//get the stream to write the data 
+String sname=req.getParameter("sname"); String cname=req.getParameter("cname"); String singer=req.getParameter("singer"); 
+
+String artist=""; 
+if(req.getParameter("fluteman")!=null) artist=" Fluteman"; if(req.getParameter("tabalaman")!=null) artist=artist + " Tabalaman"; if(req.getParameter("violinman")!=null) artist=artist + " Violinman"; 
+if(req.getParameter("supportingsinger")!=null) artist=artist + " Supportingsinger"; 
+String filename="dA\song.txt"; FileWriter fw=new FileWriter(filename,true); fw.write("\n"); 
+try 
+fw.write("Song:" + sname +" Composer:"+ cname + " Singer:" + singer + " Artist:" + artist); 
+fw.close(); 
+catch(Exception e) 
+System.out.println(e); 
+pw.println("<!DOCTYPE html>"); pw.println("<html>"); pw.println("<body>"); pw.println("<h2>Current Survey Result </h2>"); pw.println("</br>Song Name: " + sname + "</br> Composer :"+ cname + "</br> Singer :" + singer + "</br> Artist: "+ artist); pw.println("</br></br><a href,http://localhost:8080/Examples/survey5click here </a> to view previous survey details"); 
+pw.println("</body></html>"); pw.close();//closing the stream 
+Song details are stored in d:\\song.txt. 
+
+
+Create servlet Survey.java file in source packages 
+
+
+import java.io.*; 
+import java.io.FileWriter; 
+import java.util.*;
+ import javax.servlet.*; 
+import javax.servlet.http.*; 
+import java.io.FileReader; 
+public class survey extends HttpServlet{ public void doGet(HttpServletRequest req,HttpServletResponse res) throws ServletException,IOException res.setContentType("text/html");//setting the content type PrintWriter pw=res.getWriter();//get the stream to write the data 
+String filename="dMsong.txt";
+ pw.println("<lDOCTYPE html>"); 
+pw.println("<html>"); 
+pw.println("<body>"); 
+pw.println("<h2>Previous survey result<h2>"); 
+pw.println("<b>'The most popular songs are </b> " ); pw.println("<br />"); 
+BufferedReader br = new BufferedReader(new FileReader(filename));
+ String line; pw.println("<table border=.01>");
+ pw.println("<tr><th><pre><b>Song Name Composer Singer Artist </b></pre></th></tr>"); while((line = br.readLine())1= null) 
+pw.print("<tr><td>" + I i n c + "</td></tr>"); 
+br.close(); pw.println("</table>"); pw.println("</body></html>"); 
+pw.close();//closing the stream 
+
+
+
+Survey details are read from song.txt in D:\\song.txt 
+Right click on hind file select Run File. It shows the below form 
